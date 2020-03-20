@@ -1,6 +1,6 @@
 <?php
 
-namespace cAmazon\request;
+namespace camazon\request;
 
 class Base
 {
