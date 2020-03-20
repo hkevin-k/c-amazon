@@ -1,6 +1,6 @@
 <?php
 
-namespace camazon\Base;
+namespace camazon;
 
 class Client
 {
