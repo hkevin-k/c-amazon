@@ -38,7 +38,7 @@ class Client
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
 
-            $api_params = $request->apiParas();
+            $api_params = $request->getApiParas();
             if (!empty($api_params) && is_array($api_params)) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($api_params));
             }
