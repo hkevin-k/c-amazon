@@ -44,11 +44,30 @@ class Client
             }
             $response = curl_exec($ch);
 
-            curl_close($ch);
-
-            return json_decode($response, true);
+            switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+                case 200:
+                    return json_decode($response, true);
+                    break;
+                case 401:
+                    return [
+                        'errorcode' => 401,
+                        'errmsg' => '认证失败',
+                        'data' => []
+                    ];
+                case 500:
+                    return [
+                        'errorcode' => 500,
+                        'errmsg' => '服务器错误',
+                        'data' => []
+                    ];
+                    break;
+            }
         } catch (\Exception $e) {
-            return 'ERROR '.$e->getMessage();
+            return [
+                'errorcode' => 10001,
+                'errmsg' => 'ERROR '.$e->getMessage(),
+                'data' => []
+            ];
         }
     }
 }
