@@ -44,23 +44,21 @@ class Client
             }
             $response = curl_exec($ch);
 
-            switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
-                case 200:
-                    return json_decode($response, true);
-                    break;
-                case 401:
-                    return [
-                        'errorcode' => 401,
-                        'errmsg' => '认证失败',
-                        'data' => []
-                    ];
-                case 500:
-                    return [
-                        'errorcode' => 500,
-                        'errmsg' => '服务器错误',
-                        'data' => []
-                    ];
-                    break;
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+            if ($http_code === 200) {
+                $response = json_decode($response, true);
+                return empty($response) ? [
+                    'errorcode' => 0,
+                    'errmsg' => '',
+                    'data' => []
+                ] : $response;
+            } else {
+                return [
+                    'errorcode' => $http_code,
+                    'errmsg' => curl_error($ch),
+                    'data' => []
+                ];
             }
         } catch (\Exception $e) {
             return [
