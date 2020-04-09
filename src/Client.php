@@ -2,6 +2,9 @@
 
 namespace camazon;
 
+/**
+ *
+ */
 class Client
 {
     private $_access_token;
@@ -49,14 +52,14 @@ class Client
             if ($http_code === 200) {
                 $response = json_decode($response, true);
                 return empty($response) ? [
-                    'errorcode' => 0,
-                    'errmsg' => '',
+                    'errorcode' => 10003,
+                    'errmsg' => 'Json解析问题',
                     'data' => []
                 ] : $response;
             } else {
                 return [
-                    'errorcode' => $http_code,
-                    'errmsg' => curl_error($ch),
+                    'errorcode' => 10002,
+                    'errmsg' => 'Http Code: '.$http_code.'; Message: '.curl_error($ch),
                     'data' => []
                 ];
             }
