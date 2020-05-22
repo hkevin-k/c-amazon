@@ -42,9 +42,9 @@ class Client
             curl_setopt($ch, CURLOPT_POST, true);
 
             $api_params = $request->getApiParas();
-            if (!empty($api_params) && is_array($api_params)) {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($api_params));
-            }
+            // 传post值
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($api_params));
+
             $response = curl_exec($ch);
 
             $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
