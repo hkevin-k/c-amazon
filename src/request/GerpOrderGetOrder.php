@@ -28,9 +28,7 @@ class GerpOrderGetOrder extends Base
      */
     public function setSellerOrderId($seller_order_id)
     {
-        if (!empty($market_ids)) {
-            $this->_seller_order_id = $seller_order_id;
-            $this->apiParas['seller_order_id'] = $seller_order_id;
-        }
+        $this->_seller_order_id = $seller_order_id;
+        $this->apiParas['seller_order_id'] = $seller_order_id;
     }
 }
